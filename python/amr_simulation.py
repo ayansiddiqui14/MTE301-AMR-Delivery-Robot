@@ -1,14 +1,3 @@
-"""
-MTE301 - Autonomous Mobile Robot (AMR) Package Delivery Simulation
-Toronto Metropolitan University - Fall 2025
-Group: Raed Jamal, Umair Khan, Lageen Pirabalini, Ayan Siddiqui
-
-Three-Layer Architecture:
-1. Path Planning Layer - A* algorithm for route optimization
-2. Perception Layer - Obstacle detection and avoidance
-3. Control Layer - Motor command execution for navigation
-"""
-
 import pygame
 import heapq
 import random
@@ -17,9 +6,6 @@ from enum import Enum
 from dataclasses import dataclass
 from typing import List, Tuple, Optional, Set
 
-# =============================================================================
-# CONFIGURATION
-# =============================================================================
 WINDOW_WIDTH = 1000
 WINDOW_HEIGHT = 700
 GRID_SIZE = 20
@@ -27,7 +13,6 @@ COLS = WINDOW_WIDTH // GRID_SIZE
 ROWS = WINDOW_HEIGHT // GRID_SIZE
 FPS = 60
 
-# Colors
 WHITE = (255, 255, 255)
 BLACK = (30, 30, 30)
 GRAY = (128, 128, 128)
@@ -41,9 +26,6 @@ PURPLE = (150, 80, 180)
 CYAN = (60, 200, 220)
 DARK_GREEN = (40, 120, 40)
 
-# =============================================================================
-# DATA STRUCTURES
-# =============================================================================
 class RobotState(Enum):
     IDLE = "IDLE"
     PLANNING = "PLANNING"
@@ -80,9 +62,7 @@ class Pedestrian:
         self.grid_x = int(self.x)
         self.grid_y = int(self.y)
 
-# =============================================================================
 # PATH PLANNING LAYER - A* Algorithm
-# =============================================================================
 class PathPlanner:
     """Implements A* algorithm for optimal route planning"""
     
@@ -147,9 +127,8 @@ class PathPlanner:
         
         return []
 
-# =============================================================================
+
 # PERCEPTION LAYER - Obstacle Detection
-# =============================================================================
 class PerceptionSystem:
     """Handles sensor simulation and obstacle detection"""
     
@@ -181,9 +160,8 @@ class PerceptionSystem:
                 return True
         return False
 
-# =============================================================================
+
 # CONTROL LAYER - Robot Controller
-# =============================================================================
 class RobotController:
     """Controls robot movement and state management"""
     
@@ -238,9 +216,8 @@ class RobotController:
         
         return False
 
-# =============================================================================
-# CAMPUS MAP GENERATOR
-# =============================================================================
+
+# CAMPUS MAP 
 def generate_campus_map() -> List[List[int]]:
     grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
     
@@ -264,9 +241,8 @@ def generate_campus_map() -> List[List[int]]:
     
     return grid
 
-# =============================================================================
+
 # SIMULATION CLASS
-# =============================================================================
 class AMRSimulation:
     def __init__(self):
         pygame.init()
@@ -594,9 +570,8 @@ class AMRSimulation:
         
         pygame.quit()
 
-# =============================================================================
-# MAIN ENTRY POINT
-# =============================================================================
+
+# MAIN 
 if __name__ == "__main__":
     print("=" * 60)
     print("MTE301 - Autonomous Mobile Robot Package Delivery Simulation")
