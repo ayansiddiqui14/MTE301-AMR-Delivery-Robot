@@ -64,7 +64,7 @@ class Pedestrian:
 
 # PATH PLANNING LAYER - A* Algorithm
 class PathPlanner:
-    """Implements A* algorithm for optimal route planning"""
+    """Implements A* algorithm for route planning"""
     
     def __init__(self, grid):
         self.grid = grid
@@ -127,7 +127,6 @@ class PathPlanner:
         
         return []
 
-
 # PERCEPTION LAYER - Obstacle Detection
 class PerceptionSystem:
     """Handles sensor simulation and obstacle detection"""
@@ -161,7 +160,7 @@ class PerceptionSystem:
         return False
 
 
-# CONTROL LAYER - Robot Controller
+# CONTROL LAYER - Robot 
 class RobotController:
     """Controls robot movement and state management"""
     
@@ -216,7 +215,6 @@ class RobotController:
         
         return False
 
-
 # CAMPUS MAP 
 def generate_campus_map() -> List[List[int]]:
     grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
@@ -250,6 +248,7 @@ class AMRSimulation:
         pygame.display.set_caption("MTE301 - AMR Package Delivery Simulation")
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 24)
+        self.small_font = pygame.font.Font(None, 18)
         self.large_font = pygame.font.Font(None, 36)
         
         self.grid = generate_campus_map()
@@ -531,21 +530,24 @@ class AMRSimulation:
         time_text = self.font.render(f"Time: {elapsed:.1f}s", True, WHITE)
         self.screen.blit(time_text, (x, y))
         
-        legend_y = WINDOW_HEIGHT - 100
-        pygame.draw.rect(self.screen, (40, 40, 40), (10, legend_y - 10, 300, 95))
-        pygame.draw.rect(self.screen, WHITE, (10, legend_y - 10, 300, 95), 1)
+
+        legend_y = WINDOW_HEIGHT - 70
+        legend_width = 300
+        legend_height = 65
+        pygame.draw.rect(self.screen, (40, 40, 40), (10, legend_y - 5, legend_width, legend_height))
+        pygame.draw.rect(self.screen, WHITE, (10, legend_y - 5, legend_width, legend_height), 1)
         
         legend_items = [
-            (BLUE, "Robot"), (YELLOW, "Pickup Point"), (PURPLE, "Dropoff Point"),
-            (RED, "Pedestrian"), (GREEN, "Home/Depot"), (CYAN, "Planned Path")
+            (BLUE, "Robot"), (YELLOW, "Pickup"), (PURPLE, "Dropoff"),
+            (RED, "Pedestrian"), (CYAN, "Path")
         ]
         
         for i, (color, label) in enumerate(legend_items):
-            lx = 20 + (i % 2) * 150
-            ly = legend_y + (i // 2) * 25
-            pygame.draw.circle(self.screen, color, (lx, ly + 8), 8)
-            text = self.font.render(label, True, WHITE)
-            self.screen.blit(text, (lx + 15, ly))
+            lx = 20 + (i % 3) * 95
+            ly = legend_y + 3 + (i // 3) * 25
+            pygame.draw.circle(self.screen, color, (lx, ly + 6), 5)
+            text = self.small_font.render(label, True, WHITE)
+            self.screen.blit(text, (lx + 12, ly + 1))
     
     def run(self):
         running = True
@@ -571,7 +573,7 @@ class AMRSimulation:
         pygame.quit()
 
 
-# MAIN 
+# MAIN ENTRY POINT
 if __name__ == "__main__":
     print("=" * 60)
     print("MTE301 - Autonomous Mobile Robot Package Delivery Simulation")
