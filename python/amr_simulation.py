@@ -572,7 +572,6 @@ class AMRSimulation:
         
         pygame.quit()
 
-
 # MAIN ENTRY POINT
 if __name__ == "__main__":
     print("=" * 60)
